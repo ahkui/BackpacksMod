@@ -1,28 +1,26 @@
 {
   "schemaVersion": 1,
   "id": "mbackpacks",
-  "version": "${version}",
+  "version": "1.0.0",
 
-  "name": "Modular Backpacks",
+  "name": "Backpacks MOD",
   "description": "This mod adds backpacks!",
   "authors": [
     "Mpcs"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/mpcs/ModularBackpacks"
+    "sources": "https://github.com/Mpcs/BackpacksMod"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.mpcs.ModularBackpacksMod"
+      "io.github.mpcs.BackpacksMod"
     ],
     "client": [
-      "io.github.mpcs.ModularBackpacksModClient"
+      "io.github.mpcs.BackpacksModClient"
     ]
   },
 

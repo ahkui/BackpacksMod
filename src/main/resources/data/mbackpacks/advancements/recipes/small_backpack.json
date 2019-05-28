@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [ "mbackpacks:small_backpack" ]
+  },
+  "criteria": {
+    "leath": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [ { "item": "minecraft:leather" } ]
+      }
+    },
+    "strin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [ { "item":  "minecraft:string"} ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "leath",
+      "strin"
+    ]
+  ]
+}

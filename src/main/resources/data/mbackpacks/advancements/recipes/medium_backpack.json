@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [ "mbackpacks:medium_backpack" ]
+  },
+  "criteria": {
+    "leath": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [ { "item": "minecraft:leather" } ]
+      }
+    },
+    "strin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [ { "item":  "minecraft:string"} ]
+      }
+    },
+    "gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [ { "item":  "minecraft:gold_ingot"} ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "leath",
+      "strin",
+      "gold"
+    ]
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "mbackpacks:item/backpack"
+    "layer0": "mbackpacks:item/small_backpack"
   }
 }

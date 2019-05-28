@@ -19,9 +19,9 @@ public class BackpackInventory implements Inventory {
     public final PlayerEntity accessor;
     private BackpackContainer container;
 
-    public BackpackInventory(BackpackContainer container, @Nullable PlayerEntity player) {
+    public BackpackInventory(int rows, BackpackContainer container, @Nullable PlayerEntity player) {
         this.accessor = player;
-        this.stacks = DefaultedList.create(SECTION_SIZE * 3, ItemStack.EMPTY);
+        this.stacks = DefaultedList.create(SECTION_SIZE * rows, ItemStack.EMPTY);
         this.container = container;
     }
 

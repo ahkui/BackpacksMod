@@ -2,22 +2,30 @@ package io.github.mpcs.container;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.ContainerScreen;
+import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 
 public class BackpackScreen extends ContainerScreen<BackpackContainer> {
-    private static final Identifier TEXTURE = new Identifier("mbackpacks", "textures/gui/backpack.png");
-    private boolean isNarrow;
+    private Identifier TEXTURE;
+    private int size;
+    public BackpackScreen(int syncId, PlayerEntity player, PacketByteBuf buf) {
+        super(new BackpackContainer(syncId, player.inventory, buf), player.inventory, new TranslatableComponent("container.mpcsmod.resistortable"));
+        size = buf.readInt();
+        TEXTURE = new Identifier("mbackpacks", "textures/gui/backpack" + size + ".png");
+        if(size == 4)
+            this.containerHeight = 184;
+        else if(size == 6) {
+            this.containerHeight = 222;
+        }
 
-    public BackpackScreen(int syncId, PlayerEntity player) {
-        super(new BackpackContainer(syncId, player.inventory), player.inventory, new TranslatableComponent("container.mpcsmod.resistortable"));
     }
 
     @Override
     protected void init() {
         super.init();
-        this.isNarrow = this.width < 379;
         this.left = (this.width - this.containerWidth) / 2;
     }
 
