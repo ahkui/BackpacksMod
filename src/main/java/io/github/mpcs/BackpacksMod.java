@@ -1,7 +1,6 @@
 package io.github.mpcs;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.container.GenericContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;

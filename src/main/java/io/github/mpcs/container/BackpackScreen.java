@@ -1,6 +1,7 @@
 package io.github.mpcs.container;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +41,7 @@ public class BackpackScreen extends ContainerScreen<BackpackContainer> {
 
     @Override
     protected void drawForeground(int int_1, int int_2) {
-        this.font.draw("Backpack", 50.0F, 6.0F, 4210752);
+        this.font.draw("Backpack", 8.0F, 6.0F, 4210752);
     }
 
     @Override
