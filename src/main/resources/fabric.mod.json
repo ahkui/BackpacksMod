@@ -6,14 +6,14 @@
   "name": "Backpacks MOD",
   "description": "This mod adds backpacks!",
   "authors": [
-    "Mpcs"
+    "Code: Mpcs",
+    "Textures: Arek"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
     "sources": "https://github.com/Mpcs/BackpacksMod"
   },
 
-  "license": "CC0-1.0",
+  "license": "GNU GPLv3",
   "environment": "*",
   "entrypoints": {
     "main": [
