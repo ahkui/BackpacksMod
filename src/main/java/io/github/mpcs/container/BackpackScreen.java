@@ -1,15 +1,13 @@
 package io.github.mpcs.container;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.client.gui.ContainerScreen;
-import net.minecraft.client.gui.widget.ToggleButtonWidget;
+import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
-public class BackpackScreen extends ContainerScreen<BackpackContainer> {
+public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
     private Identifier TEXTURE;
     private int size;
     public BackpackScreen(int syncId, PlayerEntity player, PacketByteBuf buf) {

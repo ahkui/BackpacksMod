@@ -1,13 +1,9 @@
 package io.github.mpcs.container;
 
-import com.sun.istack.internal.Nullable;
-import net.minecraft.container.Container;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeFinder;
 import net.minecraft.util.DefaultedList;
 
 import java.util.Iterator;
@@ -15,11 +11,10 @@ import java.util.Iterator;
 public class BackpackInventory implements Inventory {
     public static final int SECTION_SIZE = 9;
     private final DefaultedList<ItemStack> stacks;
-    @Nullable
     public final PlayerEntity accessor;
     private BackpackContainer container;
 
-    public BackpackInventory(int rows, BackpackContainer container, @Nullable PlayerEntity player) {
+    public BackpackInventory(int rows, BackpackContainer container, PlayerEntity player) {
         this.accessor = player;
         this.stacks = DefaultedList.create(SECTION_SIZE * rows, ItemStack.EMPTY);
         this.container = container;
