@@ -14,13 +14,12 @@ public class BackpacksMod implements ModInitializer {
 
 	protected static final Identifier BACKPACK_CONTAINTER = new Identifier(BackpacksMod.modid, "backpack");
 
-	protected static Item SMALL_BACKPACK;// = new BackpackItem(3, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
-	protected static Item MEDIUM_BACKPACK;// = new BackpackItem(11, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
-	protected static Item BIG_BACKPACK;// = new BackpackItem(26, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
+	protected static Item SMALL_BACKPACK;
+	protected static Item MEDIUM_BACKPACK;
+	protected static Item BIG_BACKPACK;
 
 	@Override
 	public void onInitialize() {
-
 		Config config = new Config("MpcsBackpacks");
 		if(!config.exists()) {
 			config.load();
@@ -43,15 +42,13 @@ public class BackpacksMod implements ModInitializer {
 		if(mediumSize < 1)
 			mediumSize = 1;
 		MEDIUM_BACKPACK = new BackpackItem(mediumSize, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
-
-
+		
 		int bigSize = config.getInt("big_backpack");
 		if(bigSize > 54)
 			bigSize = 54;
 		if(bigSize < 1)
 			bigSize = 1;
 		BIG_BACKPACK = new BackpackItem(bigSize, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
-
 
 		Registry.register(Registry.ITEM, new Identifier(BackpacksMod.modid, "small_backpack"), SMALL_BACKPACK);
 		Registry.register(Registry.ITEM, new Identifier(BackpacksMod.modid, "medium_backpack"), MEDIUM_BACKPACK);

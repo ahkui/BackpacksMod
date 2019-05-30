@@ -22,13 +22,12 @@ public class BackpackContainer extends Container {
     }
 
     public BackpackContainer(int syncId, PlayerInventory playerInv, BlockContext ctx, int slots, Hand hand) {
-
         super(null, syncId);
         this.inv = new BackpackInventory(slots, this, playerInv.player);
         this.context = ctx;
         this.player = playerInv.player;
         this.slots = slots;
-        this.hand = hand;//(hnd == 1 ? Hand.MAIN_HAND : Hand.OFF_HAND);
+        this.hand = hand;
 
         int spacing;
         if(slots % 9 == 0)
@@ -36,9 +35,9 @@ public class BackpackContainer extends Container {
         else
             spacing = 30 + (slots/9 + 1) * 18 + ((slots/9) < 5 ? 0 : 2);
 
-        for(int int_8 = 0; int_8 < (slots/9); int_8++) {
-            for(int int_7 = 0; int_7 < 9; ++int_7) {
-                this.addSlot(new BackpackSlot(inv, int_7 + int_8 * 9, 8 + int_7 * 18, 18 + int_8 * 18));
+        for(int y = 0; y < (slots/9); y++) {
+            for(int x = 0; x < 9; ++x) {
+                this.addSlot(new BackpackSlot(inv, x + y * 9, 8 + x * 18, 18 + y * 18));
             }
         }
         if((slots % 9) != 0)
@@ -47,14 +46,14 @@ public class BackpackContainer extends Container {
             }
 
 
-        for(int int_6 = 0; int_6 < 3; ++int_6) {
-            for(int int_5 = 0; int_5 < 9; ++int_5) {
-                this.addSlot(new Slot(playerInv, int_5 + int_6 * 9 + 9, 8 + int_5 * 18, spacing + int_6 * 18));
+        for(int y = 0; y < 3; ++y) {
+            for(int x = 0; x < 9; ++x) {
+                this.addSlot(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, spacing + y * 18));
             }
         }
 
-        for(int int_6 = 0; int_6 < 9; ++int_6) {
-            this.addSlot(new Slot(playerInv, int_6, 8 + int_6 * 18, 58 + spacing));
+        for(int x = 0; x < 9; ++x) {
+            this.addSlot(new Slot(playerInv, x, 8 + x * 18, 58 + spacing));
         }
 
         DefaultedList<ItemStack> ad = DefaultedList.create(slots, ItemStack.EMPTY);
@@ -101,27 +100,27 @@ public class BackpackContainer extends Container {
 
     @Override
     public ItemStack transferSlot(PlayerEntity player, int slotNum) {
-        ItemStack itemStack_1 = ItemStack.EMPTY;
-        Slot slot_1 = this.slotList.get(slotNum);
-        if (slot_1 != null && slot_1.hasStack()) {
-            ItemStack itemStack_2 = slot_1.getStack();
-            itemStack_1 = itemStack_2.copy();
-            if (slotNum < slots * 9) {
-                if (!this.insertItem(itemStack_2, slots * 9, this.slotList.size(), true)) {
+        ItemStack copy = ItemStack.EMPTY;
+        Slot clickedSlot = this.slotList.get(slotNum);
+        if (clickedSlot != null && clickedSlot.hasStack()) {
+            ItemStack clickedStack = clickedSlot.getStack();
+            copy = clickedStack.copy();
+            if (slotNum < slots) {
+                if (!this.insertItem(clickedStack, slots, this.slotList.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(itemStack_2, 0, slots * 9, false)) {
+            } else if (!this.insertItem(clickedStack, 0, slots, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (itemStack_2.isEmpty()) {
-                slot_1.setStack(ItemStack.EMPTY);
+            if (clickedStack.isEmpty()) {
+                clickedSlot.setStack(ItemStack.EMPTY);
             } else {
-                slot_1.markDirty();
+                clickedSlot.markDirty();
             }
         }
 
-        return itemStack_1;
+        return copy;
     }
 
     @Override
