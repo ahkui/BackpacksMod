@@ -11,19 +11,21 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class BackpackItem extends Item implements DyeableItem {
-    private int size;
-    public BackpackItem(int size, Settings item$Settings_1) {
+    private int slots;
+    public BackpackItem(int slots, Settings item$Settings_1) {
         super(item$Settings_1);
-        this.size = size;
+        this.slots = slots;
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world_1, PlayerEntity playerEntity_1, Hand hand_1) {
         if (!world_1.isClient)
             ContainerProviderRegistry.INSTANCE.openContainer(BackpacksMod.BACKPACK_CONTAINTER, playerEntity_1, buf -> {
-                buf.writeInt(size);
-                buf.writeInt(size);
-        });
+                buf.writeInt(slots);
+                buf.writeInt(hand_1 == Hand.MAIN_HAND ? 1 : 0) ;
+                buf.writeInt(slots);
+                //buf.writeInt(hand_1 == Hand.MAIN_HAND ? 1 : 0) ;
+            });
         return new TypedActionResult(ActionResult.PASS, playerEntity_1.getStackInHand(hand_1));
     }
 

@@ -9,17 +9,17 @@ import net.minecraft.util.PacketByteBuf;
 
 public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
     private Identifier TEXTURE;
-    private int size;
+    private Identifier SLOT_TEXTURE = new Identifier("mbackpacks", "textures/gui/slot.png");
+    private int slots;
     public BackpackScreen(int syncId, PlayerEntity player, PacketByteBuf buf) {
         super(new BackpackContainer(syncId, player.inventory, buf), player.inventory, new TranslatableComponent("container.mpcsmod.resistortable"));
-        size = buf.readInt();
-        TEXTURE = new Identifier("mbackpacks", "textures/gui/backpack" + size + ".png");
-        if(size == 4)
+        slots = buf.readInt();
+        TEXTURE = new Identifier("mbackpacks", "textures/gui/backpack" + ((slots/9) + (slots % 9 == 0 ? 0 : 1)) + ".png");
+        if((slots/9) == 4)
             this.containerHeight = 184;
-        else if(size == 6) {
+        else if((slots/9) > 4) {
             this.containerHeight = 222;
         }
-
     }
 
     @Override
@@ -35,6 +35,24 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
         int guiX = this.left;
         int guiY = (this.height - this.containerHeight) / 2;
         this.blit(guiX, guiY, 0, 0, this.containerWidth, this.containerHeight);
+
+        drawSlots(guiX, guiY);
+        //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+        //this.blit(guiX + 7, guiY + 17, 0, 0, 18, 18);
+    }
+
+    private void drawSlots(int guiX, int guiY) {
+        this.minecraft.getTextureManager().bindTexture(SLOT_TEXTURE);
+        for(int y = 0; y < (slots/9); y++)
+            for(int x = 0; x < 9; x++) {
+                this.blit(guiX + 7 + (x * 18), guiY + 17 + (y * 18), 0, 0, 18, 18);
+            }
+
+        if((slots % 9) != 0)
+            for(int x = 0; x < (slots % 9); x++) {
+                this.blit(guiX + 7 + (x * 18), guiY + 17 + (slots/9 * 18), 0, 0, 18, 18);
+            }
     }
 
     @Override
@@ -45,7 +63,7 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         this.renderBackground();
-        this.drawBackground(partialTicks, mouseX, mouseY);
+        //this.drawBackground(partialTicks, mouseX, mouseY);
         super.render(mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(mouseX, mouseY);
     }
