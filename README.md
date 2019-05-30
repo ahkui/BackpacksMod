@@ -1,3 +1,2 @@
 # Backpacks Mod
-
-## Made by Mpcs
+https://minecraft.curseforge.com/projects/mpcs-backpacks
