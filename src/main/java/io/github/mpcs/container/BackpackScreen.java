@@ -11,8 +11,10 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
     private Identifier TEXTURE;
     private Identifier SLOT_TEXTURE = new Identifier("mbackpacks", "textures/gui/slot.png");
     private int slots;
+    private String name;
     public BackpackScreen(int syncId, PlayerEntity player, PacketByteBuf buf) {
         super(new BackpackContainer(syncId, player.inventory, buf), player.inventory, new TranslatableComponent("container.mpcsmod.resistortable"));
+        name = buf.readString();
         slots = buf.readInt();
         TEXTURE = new Identifier("mbackpacks", "textures/gui/backpack" + ((slots/9) + (slots % 9 == 0 ? 0 : 1)) + ".png");
         if((slots/9) == 4)
@@ -57,7 +59,7 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
 
     @Override
     protected void drawForeground(int int_1, int int_2) {
-        this.font.draw("Backpack", 8.0F, 6.0F, 4210752);
+        this.font.draw(name, 8.0F, 6.0F, 4210752);
     }
 
     @Override

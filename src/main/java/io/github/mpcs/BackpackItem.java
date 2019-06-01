@@ -21,10 +21,11 @@ public class BackpackItem extends Item implements DyeableItem {
     public TypedActionResult<ItemStack> use(World world_1, PlayerEntity playerEntity_1, Hand hand_1) {
         if (!world_1.isClient)
             ContainerProviderRegistry.INSTANCE.openContainer(BackpacksMod.BACKPACK_CONTAINTER, playerEntity_1, buf -> {
+                System.out.println(playerEntity_1.getStackInHand(hand_1).getDisplayName().getString());
                 buf.writeInt(slots);
                 buf.writeInt(hand_1 == Hand.MAIN_HAND ? 1 : 0) ;
+                buf.writeString(playerEntity_1.getStackInHand(hand_1).getDisplayName().getString());
                 buf.writeInt(slots);
-                //buf.writeInt(hand_1 == Hand.MAIN_HAND ? 1 : 0) ;
             });
         return new TypedActionResult(ActionResult.PASS, playerEntity_1.getStackInHand(hand_1));
     }
