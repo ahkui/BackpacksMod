@@ -3,7 +3,7 @@ package io.github.mpcs.container;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
@@ -13,7 +13,7 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
     private int slots;
     private String name;
     public BackpackScreen(int syncId, PlayerEntity player, PacketByteBuf buf) {
-        super(new BackpackContainer(syncId, player.inventory, buf), player.inventory, new TranslatableComponent("container.mpcsmod.resistortable"));
+        super(new BackpackContainer(syncId, player.inventory, buf), player.inventory, new TranslatableText("container.mbackpacks.backpack"));
         name = buf.readString();
         slots = buf.readInt();
         TEXTURE = new Identifier("mbackpacks", "textures/gui/backpack" + ((slots/9) + (slots % 9 == 0 ? 0 : 1)) + ".png");
@@ -39,9 +39,6 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
         this.blit(guiX, guiY, 0, 0, this.containerWidth, this.containerHeight);
 
         drawSlots(guiX, guiY);
-        //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-        //this.blit(guiX + 7, guiY + 17, 0, 0, 18, 18);
     }
 
     private void drawSlots(int guiX, int guiY) {
@@ -65,7 +62,6 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         this.renderBackground();
-        //this.drawBackground(partialTicks, mouseX, mouseY);
         super.render(mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(mouseX, mouseY);
     }

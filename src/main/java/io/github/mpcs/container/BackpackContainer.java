@@ -56,7 +56,7 @@ public class BackpackContainer extends Container {
             this.addSlot(new Slot(playerInv, x, 8 + x * 18, 58 + spacing));
         }
 
-        DefaultedList<ItemStack> ad = DefaultedList.create(slots, ItemStack.EMPTY);
+        DefaultedList<ItemStack> ad = DefaultedList.ofSize(slots, ItemStack.EMPTY);
         BackpackItem.getInventory(player.getStackInHand(this.hand), ad);
         if(ad.size() == 0)
             return;
@@ -86,7 +86,7 @@ public class BackpackContainer extends Container {
 
     public void close(PlayerEntity player) {
         super.close(player);
-        DefaultedList<ItemStack> items = DefaultedList.create(slots *9, ItemStack.EMPTY);
+        DefaultedList<ItemStack> items = DefaultedList.ofSize(slots *9, ItemStack.EMPTY);
         items = inv.getList(items);
         BackpackItem.setInventory(player.getStackInHand(this.hand), items);
         this.context.run((world, pos) -> {

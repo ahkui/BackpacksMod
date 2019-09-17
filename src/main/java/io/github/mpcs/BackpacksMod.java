@@ -34,21 +34,21 @@ public class BackpacksMod implements ModInitializer {
 			smallSize = 54;
 		if(smallSize < 1)
 			smallSize = 1;
-		SMALL_BACKPACK = new BackpackItem(smallSize, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
+		SMALL_BACKPACK = new BackpackItem(smallSize, new Item.Settings().group(ItemGroup.TOOLS).maxCount(1));
 
 		int mediumSize = config.getInt("medium_backpack");
 		if(mediumSize > 54)
 			mediumSize = 54;
 		if(mediumSize < 1)
 			mediumSize = 1;
-		MEDIUM_BACKPACK = new BackpackItem(mediumSize, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
-		
+		MEDIUM_BACKPACK = new BackpackItem(mediumSize, new Item.Settings().group(ItemGroup.TOOLS).maxCount(1));
+
 		int bigSize = config.getInt("big_backpack");
 		if(bigSize > 54)
 			bigSize = 54;
 		if(bigSize < 1)
 			bigSize = 1;
-		BIG_BACKPACK = new BackpackItem(bigSize, new Item.Settings().itemGroup(ItemGroup.TOOLS).stackSize(1));
+		BIG_BACKPACK = new BackpackItem(bigSize, new Item.Settings().group(ItemGroup.TOOLS).maxCount(1));
 
 		Registry.register(Registry.ITEM, new Identifier(BackpacksMod.modid, "small_backpack"), SMALL_BACKPACK);
 		Registry.register(Registry.ITEM, new Identifier(BackpacksMod.modid, "medium_backpack"), MEDIUM_BACKPACK);
