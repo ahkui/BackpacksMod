@@ -27,14 +27,14 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
     @Override
     protected void init() {
         super.init();
-        this.left = (this.width - this.containerWidth) / 2;
+        this.x = (this.width - this.containerWidth) / 2;
     }
 
     @Override
     protected void drawBackground(float var1, int var2, int var3) {
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
-        int guiX = this.left;
+        int guiX = this.x;
         int guiY = (this.height - this.containerHeight) / 2;
         this.blit(guiX, guiY, 0, 0, this.containerWidth, this.containerHeight);
 

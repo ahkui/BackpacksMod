@@ -1,6 +1,5 @@
 package io.github.mpcs;
 
-import com.sun.istack.internal.Nullable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
@@ -11,14 +10,11 @@ import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class BackpackItem extends Item implements DyeableItem {
@@ -55,44 +51,36 @@ public class BackpackItem extends Item implements DyeableItem {
         }
         Inventories.fromTag(nbt, defaultedList);
         backpack.setTag(nbt);
-
     }
 
-
+    @Override
     @Environment(EnvType.CLIENT)
-    public void buildTooltip(ItemStack itemStack_1, @Nullable BlockView blockView_1, List<Text> list_1, TooltipContext tooltipContext_1) {
-        this.buildTooltip(itemStack_1, blockView_1, list_1, tooltipContext_1);
-        CompoundTag compoundTag_1 = itemStack_1.getSubTag("BlockEntityTag");
-        if (compoundTag_1 != null) {
-            if (compoundTag_1.containsKey("LootTable", 8)) {
-                list_1.add(new LiteralText("???????"));
-            }
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        CompoundTag tag = stack.getTag();
+        if (tag != null) {
+            if (tag.contains("Items", 9)) {
+                DefaultedList<ItemStack> stacks = DefaultedList.ofSize(27, ItemStack.EMPTY);
+                Inventories.fromTag(tag, stacks);
+                int listedStacks = 0;
+                int totalStacks = 0;
 
-            if (compoundTag_1.containsKey("Items", 9)) {
-                DefaultedList<ItemStack> defaultedList_1 = DefaultedList.ofSize(27, ItemStack.EMPTY);
-                Inventories.fromTag(compoundTag_1, defaultedList_1);
-                int int_1 = 0;
-                int int_2 = 0;
-                Iterator var9 = defaultedList_1.iterator();
-
-                while(var9.hasNext()) {
-                    ItemStack itemStack_2 = (ItemStack)var9.next();
-                    if (!itemStack_2.isEmpty()) {
-                        ++int_2;
-                        if (int_1 <= 4) {
-                            ++int_1;
-                            Text text_1 = itemStack_2.getName().deepCopy();
-                            text_1.append(" x").append(String.valueOf(itemStack_2.getCount()));
-                            list_1.add(text_1);
+                for (ItemStack heldStack : stacks) {
+                    if (!heldStack.isEmpty()) {
+                        ++totalStacks;
+                        if (listedStacks <= 4) {
+                            ++listedStacks;
+                            Text stackName = heldStack.getName().deepCopy();
+                            stackName.append(" x").append(String.valueOf(heldStack.getCount()));
+                            tooltip.add(stackName);
                         }
                     }
                 }
 
-                if (int_2 - int_1 > 0) {
-                    list_1.add((new TranslatableText("container.shulkerBox.more", new Object[]{int_2 - int_1})).formatted(Formatting.ITALIC));
+                if (totalStacks - listedStacks > 0) {
+                    tooltip.add((new TranslatableText("container.shulkerBox.more", new Object[]{totalStacks - listedStacks})).formatted(Formatting.ITALIC));
                 }
             }
         }
-
     }
 }
