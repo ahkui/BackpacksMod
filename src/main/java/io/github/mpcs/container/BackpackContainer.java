@@ -14,7 +14,7 @@ public class BackpackContainer extends Container {
     private final BackpackInventory inv;
     private final BlockContext context;
     private final PlayerEntity player;
-    private int slots;
+    private int slotsId;
     private Hand hand;
 
     public BackpackContainer(int syncId, PlayerInventory playerInv, PacketByteBuf buf) {
@@ -26,7 +26,7 @@ public class BackpackContainer extends Container {
         this.inv = new BackpackInventory(slots, this, playerInv.player);
         this.context = ctx;
         this.player = playerInv.player;
-        this.slots = slots;
+        this.slotsId = slots;
         this.hand = hand;
 
         int spacing;
@@ -86,7 +86,7 @@ public class BackpackContainer extends Container {
 
     public void close(PlayerEntity player) {
         super.close(player);
-        DefaultedList<ItemStack> items = DefaultedList.ofSize(slots *9, ItemStack.EMPTY);
+        DefaultedList<ItemStack> items = DefaultedList.ofSize(slotsId *9, ItemStack.EMPTY);
         items = inv.getList(items);
         BackpackItem.setInventory(player.getStackInHand(this.hand), items);
         this.context.run((world, pos) -> {
@@ -101,15 +101,15 @@ public class BackpackContainer extends Container {
     @Override
     public ItemStack transferSlot(PlayerEntity player, int slotNum) {
         ItemStack copy = ItemStack.EMPTY;
-        Slot clickedSlot = this.slotList.get(slotNum);
+        Slot clickedSlot = this.slots.get(slotNum);
         if (clickedSlot != null && clickedSlot.hasStack()) {
             ItemStack clickedStack = clickedSlot.getStack();
             copy = clickedStack.copy();
-            if (slotNum < slots) {
-                if (!this.insertItem(clickedStack, slots, this.slotList.size(), true)) {
+            if (slotNum < slotsId) {
+                if (!this.insertItem(clickedStack, slotsId, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(clickedStack, 0, slots, false)) {
+            } else if (!this.insertItem(clickedStack, 0, slotsId, false)) {
                 return ItemStack.EMPTY;
             }
 

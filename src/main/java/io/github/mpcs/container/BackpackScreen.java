@@ -1,13 +1,13 @@
 package io.github.mpcs.container;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
+import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
-public class BackpackScreen extends AbstractContainerScreen<BackpackContainer> {
+public class BackpackScreen extends AbstractInventoryScreen<BackpackContainer> {
     private Identifier TEXTURE;
     private Identifier SLOT_TEXTURE = new Identifier("mbackpacks", "textures/gui/slot.png");
     private int slots;
